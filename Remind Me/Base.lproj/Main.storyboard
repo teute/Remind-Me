@@ -139,6 +139,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Reminder" id="vYR-us-vY6"/>
                     <connections>
+                        <outlet property="categoryPicker" destination="2I8-vv-XZD" id="te7-3d-kwS"/>
                         <outlet property="moduleField" destination="hLO-Bk-EbF" id="xaS-56-e9z"/>
                         <outlet property="titleField" destination="zAL-Lb-IeZ" id="7Z7-80-MIP"/>
                     </connections>

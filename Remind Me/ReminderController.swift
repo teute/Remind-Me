@@ -8,15 +8,23 @@
 
 import UIKit
 
-class ReminderController: UIViewController {
+//http://codewithchris.com/uipickerview-example/
+
+class ReminderController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     public var reminderID:Int?
     
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var moduleField: UITextField!
+    @IBOutlet weak var categoryPicker: UIPickerView!
+    
+    var categoryData: [String] = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.categoryPicker.delegate = self
+        self.categoryPicker.dataSource = self
 
         if let id:Int = self.reminderID {
             print("view did load with reminder \(id)")
@@ -24,6 +32,7 @@ class ReminderController: UIViewController {
                 self.title = reminder.title
                 self.titleField.text = reminder.title
                 self.moduleField.text = reminder.module
+                categoryData = ["Item 1", "Item 2", "Item 3"]
             }
         }
     }
@@ -31,6 +40,18 @@ class ReminderController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return categoryData.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return categoryData[row]
     }
     
 
