@@ -12,11 +12,19 @@ class ReminderController: UIViewController {
     
     public var reminderID:Int?
     
+    @IBOutlet weak var titleField: UITextField!
+    @IBOutlet weak var moduleField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         if let id:Int = self.reminderID {
             print("view did load with reminder \(id)")
+            if let reminder:Reminder = try? Reminders.sharedInstance.getReminder(at: id) {
+                self.title = reminder.title
+                self.titleField.text = reminder.title
+                self.moduleField.text = reminder.module
+            }
         }
     }
 
