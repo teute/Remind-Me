@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="fhg-Ts-dsH">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Split View Controller-->
+        <scene sceneID="4wP-Xu-P1j">
+            <objects>
+                <splitViewController id="fhg-Ts-dsH" sceneMemberID="viewController">
+                    <connections>
+                        <segue destination="lqT-hN-9fH" kind="relationship" relationship="masterViewController" id="W4d-bd-g9w"/>
+                        <segue destination="ZFz-PD-bd7" kind="relationship" relationship="detailViewController" id="crs-hW-IhV"/>
+                    </connections>
+                </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L3b-Pt-JIE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-689" y="19"/>
+        </scene>
+        <!--Remind Me-->
+        <scene sceneID="aID-2w-VJV">
+            <objects>
+                <tableViewController id="UfD-Z4-NKt" customClass="ListController" customModule="Remind_Me" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="SeL-cz-nRS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Reminder" id="Ttw-Sn-Yem">
+                                <rect key="frame" x="0.0" y="92" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ttw-Sn-Yem" id="L87-Z0-y88">
+                                    <frame key="frameInset" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="UfD-Z4-NKt" id="QIM-id-HVx"/>
+                            <outlet property="delegate" destination="UfD-Z4-NKt" id="Dh9-hg-ut3"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Remind Me" id="fZj-mB-3vk"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Mx-kD-4O7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1257" y="-442"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="hi1-so-DLz">
+            <objects>
+                <navigationController id="ZFz-PD-bd7" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="OLc-AX-Zbl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="fji-cY-Q6V" kind="relationship" relationship="rootViewController" id="uQb-Wl-08r"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bqu-5d-3b8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="313" y="405"/>
+        </scene>
+        <!--Reminder-->
+        <scene sceneID="lc3-up-OUC">
+            <objects>
+                <viewController id="fji-cY-Q6V" customClass="ReminderController" customModule="Remind_Me" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="H8n-0a-fc1"/>
+                        <viewControllerLayoutGuide type="bottom" id="666-xg-Zb9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gWs-4s-RPD">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Reminder" id="vYR-us-vY6"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="arc-I7-0rL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1250" y="394"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="zA5-UO-TVO">
+            <objects>
+                <navigationController id="lqT-hN-9fH" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="b3f-vZ-lXH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="UfD-Z4-NKt" kind="relationship" relationship="rootViewController" id="aAV-n9-dnd"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FpN-b9-lkh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="303" y="-442"/>
+        </scene>
+    </scenes>
+</document>
