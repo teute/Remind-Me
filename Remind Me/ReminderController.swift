@@ -9,11 +9,15 @@
 import UIKit
 
 class ReminderController: UIViewController {
-
+    
+    public var reminderID:Int?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        if let id:Int = self.reminderID {
+            print("view did load with reminder \(id)")
+        }
     }
 
     override func didReceiveMemoryWarning() {
