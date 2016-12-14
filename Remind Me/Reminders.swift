@@ -11,10 +11,10 @@ import Foundation
 public struct Reminder {
     var title: String
     var module: String
-    var category: String
+    var category: Int
     var deadline: Date
     
-    public init(title: String, module: String, category: String, deadline: Date) {
+    public init(title: String, module: String, category: Int, deadline: Date) {
         self.title = title
         self.module = module
         self.category = category
@@ -44,7 +44,7 @@ public class Reminders {
     }
     
     public func add(reminder: Reminder) throws {
-        if (reminder.title.isEmpty || reminder.module.isEmpty || reminder.category.isEmpty) {
+        if (reminder.title.isEmpty || reminder.module.isEmpty || reminder.category < 0) {
             throw ReminderError.emptyString
         }
         
