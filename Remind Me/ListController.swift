@@ -12,6 +12,11 @@ class ListController: UITableViewController , UpdateDelegate{
     
     var reminders = Reminders.sharedInstance
     
+    @IBAction func addReminder(_ sender: UIBarButtonItem) {
+        try? self.reminders.add(reminder: Reminder(title: "New Reminder", module: " ", category: 0, deadline: Date()))
+            self.tableView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

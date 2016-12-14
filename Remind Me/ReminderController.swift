@@ -14,7 +14,7 @@ protocol UpdateDelegate {
     func update(with reminder: Reminder, at index: Int)
 }
 
-class ReminderController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class ReminderController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     public var reminderID:Int?
     var delegate: UpdateDelegate?
@@ -22,16 +22,28 @@ class ReminderController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var moduleField: UITextField!
     @IBOutlet weak var categoryPicker: UIPickerView!
+    @IBOutlet weak var doneButton: UIBarButtonItem!
+    
+    @IBAction func dismissKeyboard(_ sender: UIBarButtonItem) {
+        self.titleField.resignFirstResponder()
+        self.moduleField.resignFirstResponder()
+    }
     
     var categoryData: [String] = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        categoryData = ["Coursework", "Exam", "Project", "Report"]
+        self.doneButton.tintColor = UIColor.clear
         
         self.categoryPicker.delegate = self
         self.categoryPicker.dataSource = self
+        self.titleField.delegate = self
+        self.moduleField.delegate = self
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardDidHide, object: nil)
+        
+        categoryData = ["Coursework", "Exam", "Project", "Report"]
 
         if let id:Int = self.reminderID {
             print("view did load with reminder \(id)")
@@ -75,6 +87,25 @@ class ReminderController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             print("saving reminder with id: \(id)")
             delegate?.update(with: reminder, at: id)
         }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == titleField {
+            print("finished editing the title")
+        } else if textField == moduleField {
+            print("finished editing the module")
+        }
+        saveReminder()
+    }
+    
+    func keyboardWillShow(_ notification: NSNotification) {
+        print("keyboard will show")
+        self.doneButton.tintColor = nil
+    }
+    
+    func keyboardWillHide(_ notification: NSNotification) {
+        print("keyboard will hide")
+        self.doneButton.tintColor = UIColor.clear
     }
     
 
