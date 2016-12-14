@@ -9,6 +9,10 @@
 import UIKit
 import CoreData
 
+//http://www.codingexplorer.com/swiftly-getting-human-readable-date-nsdateformatter/
+//http://www.knowstack.com/swift-nsdateformatter/
+//http://www.sthoughts.com/2016/06/16/swift-3-working-with-dates/
+
 protocol DeleteReminderDelegate {
     func clearReminderView(at index: Int)
 }
@@ -36,13 +40,26 @@ class ListController: UITableViewController, UpdateDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let dateFormatter = DateFormatter()
+        //dateFormatter.dateStyle = .short
+        //dateFormatter.timeStyle = .short
+        dateFormatter.dateFormat = "yyyy-MM-dd h:mm a"
+        
+        let date1: Date = dateFormatter.date(from: "2016-12-06  11:59 PM")!
+        let date2: Date = dateFormatter.date(from: "2016-12-25 4:00 PM")!
+        let date3: Date = dateFormatter.date(from: "2016-12-29 9:30 PM")!
+        
+        let time_between = date1.timeIntervalSince(date2)
 
+        print("Time Interval: \(time_between/60/60/24) days")
+        
         try? reminders.add(reminder: Reminder(title: "Reminder One", module: "305AEE",
-                                              category: 3, deadline: Date()))
+                                              category: 3, deadline: date1))
         try? reminders.add(reminder: Reminder(title: "Reminder Two", module: "310SE",
-                                              category: 0, deadline: Date()))
+                                              category: 0, deadline: date2))
         try? reminders.add(reminder: Reminder(title: "Reminder Three", module: "306AEE",
-                                              category: 2, deadline: Date()))
+                                              category: 2, deadline: date3))
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,7 +82,13 @@ class ListController: UITableViewController, UpdateDelegate{
         
         if let label = cell.textLabel {
             do {
-                try label.text = reminders.getReminder(at: indexPath.row).title
+                let days:Int = try! Int(reminders.getReminder(at: indexPath.row).dueIn / 86400)
+                
+                if (days < 0) {
+                    try label.text = reminders.getReminder(at: indexPath.row).title + " was due \(-days) days ago"
+                } else {
+                    try label.text = reminders.getReminder(at: indexPath.row).title + " due in \(days) days"
+                }
             } catch {
                 print("an error has occured")
             }
@@ -95,6 +118,7 @@ class ListController: UITableViewController, UpdateDelegate{
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             try? self.reminders.remove(at: indexPath.row)
+            //TODO: the delegate points to nil, needs fixing for feature to work
             delegate?.clearReminderView(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }

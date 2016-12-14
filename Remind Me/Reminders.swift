@@ -13,12 +13,14 @@ public struct Reminder {
     var module: String
     var category: Int
     var deadline: Date
+    var dueIn: TimeInterval
     
     public init(title: String, module: String, category: Int, deadline: Date) {
         self.title = title
         self.module = module
         self.category = category
         self.deadline = deadline
+        self.dueIn = deadline.timeIntervalSince(Date())
     }
 }
 
