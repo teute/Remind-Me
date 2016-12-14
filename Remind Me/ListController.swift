@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ListController: UITableViewController {
+class ListController: UITableViewController , UpdateDelegate{
     
     var reminders = Reminders.sharedInstance
     
@@ -16,11 +16,11 @@ class ListController: UITableViewController {
         super.viewDidLoad()
 
         try? reminders.add(reminder: Reminder(title: "Reminder One", module: "305AEE",
-                                              category: "Report", deadline: Date()))
+                                              category: 3, deadline: Date()))
         try? reminders.add(reminder: Reminder(title: "Reminder Two", module: "310SE",
-                                              category: "Coursework", deadline: Date()))
+                                              category: 0, deadline: Date()))
         try? reminders.add(reminder: Reminder(title: "Reminder Three", module: "306AEE",
-                                              category: "Project", deadline: Date()))
+                                              category: 2, deadline: Date()))
     }
 
     override func didReceiveMemoryWarning() {
@@ -95,6 +95,12 @@ class ListController: UITableViewController {
         return true
     }
     */
+    
+    func update(with reminder: Reminder, at index: Int) {
+        print("delegate method called with note title: \(reminder.title) at index \(index)")
+        try? Reminders.sharedInstance.update(reminder: reminder, at: index)
+        self.tableView.reloadData()
+    }
 
     // MARK: - Navigation
 
@@ -108,6 +114,7 @@ class ListController: UITableViewController {
                     if let reminderController = navigationController.topViewController as? ReminderController {
                         print("found Reminder Controller")
                         reminderController.reminderID = indexPath.row
+                        reminderController.delegate = self
                     }
                 }
             }

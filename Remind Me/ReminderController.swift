@@ -10,9 +10,14 @@ import UIKit
 
 //http://codewithchris.com/uipickerview-example/
 
+protocol UpdateDelegate {
+    func update(with reminder: Reminder, at index: Int)
+}
+
 class ReminderController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     public var reminderID:Int?
+    var delegate: UpdateDelegate?
     
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var moduleField: UITextField!
@@ -23,6 +28,8 @@ class ReminderController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        categoryData = ["Coursework", "Exam", "Project", "Report"]
+        
         self.categoryPicker.delegate = self
         self.categoryPicker.dataSource = self
 
@@ -32,7 +39,7 @@ class ReminderController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
                 self.title = reminder.title
                 self.titleField.text = reminder.title
                 self.moduleField.text = reminder.module
-                categoryData = ["Item 1", "Item 2", "Item 3"]
+                self.categoryPicker.selectRow(reminder.category, inComponent: 0, animated: true)
             }
         }
     }
@@ -52,6 +59,22 @@ class ReminderController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return categoryData[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        // Triggered when user makes a change to the picker selection
+        print("picker: \(categoryPicker.selectedRow(inComponent: 0))")
+        saveReminder()
+    }
+    
+    func saveReminder() {
+        self.title = self.titleField.text
+        let reminder:Reminder = Reminder(title: titleField.text!, module: moduleField.text!,
+                                         category: categoryPicker.selectedRow(inComponent: 0), deadline: Date())
+        if let id:Int = self.reminderID {
+            print("saving reminder with id: \(id)")
+            delegate?.update(with: reminder, at: id)
+        }
     }
     
 
