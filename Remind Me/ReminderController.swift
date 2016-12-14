@@ -9,12 +9,13 @@
 import UIKit
 
 //http://codewithchris.com/uipickerview-example/
+//http://stackoverflow.com/questions/32400466/constraints-that-are-relative-to-screen-size
 
 protocol UpdateDelegate {
     func update(with reminder: Reminder, at index: Int)
 }
 
-class ReminderController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+class ReminderController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, DeleteReminderDelegate {
     
     public var reminderID:Int?
     var delegate: UpdateDelegate?
@@ -97,6 +98,16 @@ class ReminderController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         if let id:Int = self.reminderID {
             print("saving reminder with id: \(id)")
             delegate?.update(with: reminder, at: id)
+        }
+    }
+    
+    func clearReminderView(at index: Int) {
+        if self.reminderID == index {
+            self.title = "Reminder"
+            self.titleField.text = " "
+            self.moduleField.text = " "
+            self.categoryPicker.selectRow(0, inComponent: 0, animated: false)
+            self.datePicker.date = Date()
         }
     }
     

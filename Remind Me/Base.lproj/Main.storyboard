@@ -47,6 +47,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Remind Me" id="fZj-mB-3vk">
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="6k9-dE-EFX">
+                            <connections>
+                                <action selector="editMode:" destination="UfD-Z4-NKt" id="E3d-DE-591"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="itB-GJ-drS">
                             <connections>
                                 <action selector="addReminder:" destination="UfD-Z4-NKt" id="vyn-me-1Oy"/>
@@ -200,6 +205,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="crs-hW-IhV"/>
+        <segue reference="PNp-XF-0xN"/>
     </inferredMetricsTieBreakers>
 </document>

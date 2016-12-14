@@ -19,9 +19,11 @@ class ReminderTests: XCTestCase {
     
     func testAddSingleReminder() {
         let reminders = Reminders.sharedInstance
+        reminders.clearList()
+        
         do {
             try reminders.add(reminder: Reminder(title: "Reminder One", module: "201CDE",
-                                                 category: "Coursewok", deadline: Date()))
+                                                 category: 0, deadline: Date()))
             XCTAssertEqual(reminders.count, 1)
         } catch {
             XCTFail()
@@ -32,11 +34,11 @@ class ReminderTests: XCTestCase {
         let reminders = Reminders.sharedInstance
         do {
             try reminders.add(reminder: Reminder(title: "Reminder One", module: "305AEE",
-                                                 category: "Report", deadline: Date()))
+                                                 category: 3, deadline: Date()))
             try reminders.add(reminder: Reminder(title: "Reminder Two", module: "310SE",
-                                                 category: "Coursework", deadline: Date()))
+                                                 category: 0, deadline: Date()))
             try reminders.add(reminder: Reminder(title: "Reminder Three", module: "306AEE",
-                                                 category: "Project", deadline: Date()))
+                                                 category: 2, deadline: Date()))
             XCTAssertEqual(reminders.count, 3)
         } catch {
             XCTFail()
@@ -47,7 +49,7 @@ class ReminderTests: XCTestCase {
         let reminders = Reminders.sharedInstance
         do {
             try reminders.add(reminder: Reminder(title: "Reminder One", module: "305AEE",
-                                                 category: "Report", deadline: Date()))
+                                                 category: 3, deadline: Date()))
             let reminder = try reminders.getReminder(at: 0)
             XCTAssertEqual(reminder.title, "Reminder One")
             XCTAssertEqual(reminder.module, "305AEE")
@@ -60,11 +62,11 @@ class ReminderTests: XCTestCase {
         let reminders = Reminders.sharedInstance
         do {
             try reminders.add(reminder: Reminder(title: "Reminder One", module: "305AEE",
-                                                 category: "Report", deadline: Date()))
+                                                 category: 3, deadline: Date()))
             try reminders.add(reminder: Reminder(title: "Reminder Two", module: "310SE",
-                                                 category: "Coursework", deadline: Date()))
+                                                 category: 0, deadline: Date()))
             try reminders.add(reminder: Reminder(title: "Reminder Three", module: "306AEE",
-                                                 category: "Project", deadline: Date()))
+                                                 category: 2, deadline: Date()))
             let reminder = try reminders.getReminder(at: 2)
             XCTAssertEqual(reminder.title, "Reminder Three")
             XCTAssertEqual(reminder.module, "306AEE")
@@ -77,11 +79,11 @@ class ReminderTests: XCTestCase {
         let reminders = Reminders.sharedInstance
         do {
             try reminders.add(reminder: Reminder(title: "Reminder One", module: "305AEE",
-                                                 category: "Report", deadline: Date()))
+                                                 category: 3, deadline: Date()))
             try reminders.add(reminder: Reminder(title: "Reminder Two", module: "310SE",
-                                                 category: "Coursework", deadline: Date()))
+                                                 category: 0, deadline: Date()))
             try reminders.add(reminder: Reminder(title: "Reminder Three", module: "306AEE",
-                                                 category: "Project", deadline: Date()))
+                                                 category: 3, deadline: Date()))
             let _ = try reminders.getReminder(at: 3)
             XCTFail()
         } catch ReminderError.outOfRande(let index) {
@@ -94,7 +96,7 @@ class ReminderTests: XCTestCase {
     func testRemoveOnlyReminder() {
         let reminders = Reminders.sharedInstance
         do {
-            try reminders.add(reminder: Reminder(title: "Reminder One", module: "305AEE", category: "Exam", deadline: Date()))
+            try reminders.add(reminder: Reminder(title: "Reminder One", module: "305AEE", category: 1, deadline: Date()))
             XCTAssertEqual(reminders.count, 1)
             try reminders.remove(at: 0)
             XCTAssertEqual(reminders.count, 0)
@@ -107,11 +109,11 @@ class ReminderTests: XCTestCase {
         let reminders = Reminders.sharedInstance
         do {
             try reminders.add(reminder: Reminder(title: "Reminder One", module: "305AEE",
-                                                 category: "Report", deadline: Date()))
+                                                 category: 3, deadline: Date()))
             try reminders.add(reminder: Reminder(title: "Reminder Two", module: "310SE",
-                                                 category: "Coursework", deadline: Date()))
+                                                 category: 0, deadline: Date()))
             try reminders.add(reminder: Reminder(title: "Reminder Three", module: "306AEE",
-                                                 category: "Project", deadline: Date()))
+                                                 category: 3, deadline: Date()))
             XCTAssertEqual(reminders.count, 3)
             try reminders.remove(at: 2)
             XCTAssertEqual(reminders.count, 2)
@@ -124,11 +126,11 @@ class ReminderTests: XCTestCase {
         let reminders = Reminders.sharedInstance
         do {
             try reminders.add(reminder: Reminder(title: "Reminder One", module: "305AEE",
-                                                 category: "Report", deadline: Date()))
+                                                 category: 3, deadline: Date()))
             try reminders.add(reminder: Reminder(title: "Reminder Two", module: "310SE",
-                                                 category: "Coursework", deadline: Date()))
+                                                 category: 0, deadline: Date()))
             try reminders.add(reminder: Reminder(title: "Reminder Three", module: "306AEE",
-                                                 category: "Project", deadline: Date()))
+                                                 category: 3, deadline: Date()))
             XCTAssertEqual(reminders.count, 3)
             try reminders.remove(at: 3)
             XCTFail()
@@ -144,14 +146,14 @@ class ReminderTests: XCTestCase {
         let reminders = Reminders.sharedInstance
         do {
             try reminders.add(reminder: Reminder(title: "Reminder One", module: "305AEE",
-                                                 category: "Report", deadline: Date()))
+                                                 category: 3, deadline: Date()))
             try reminders.add(reminder: Reminder(title: "Reminder Two", module: "310SE",
-                                                 category: "Coursework", deadline: Date()))
+                                                 category: 0, deadline: Date()))
             try reminders.add(reminder: Reminder(title: "Reminder Three", module: "306AEE",
-                                                 category: "Project", deadline: Date()))
+                                                 category: 2, deadline: Date()))
             XCTAssertEqual(reminders.count, 3)
             let reminder = Reminder(title: "Reminder Zero", module: "301CDE",
-                                    category: "Coursework", deadline: Date())
+                                    category: 0, deadline: Date())
             try reminders.insert(reminder: reminder, at: 0)
             XCTAssertEqual(reminders.count, 4)
         } catch {
@@ -163,14 +165,14 @@ class ReminderTests: XCTestCase {
         let reminders = Reminders.sharedInstance
         do {
             try reminders.add(reminder: Reminder(title: "Reminder One", module: "305AEE",
-                                                 category: "Report", deadline: Date()))
+                                                 category: 3, deadline: Date()))
             try reminders.add(reminder: Reminder(title: "Reminder Two", module: "310SE",
-                                                 category: "Coursework", deadline: Date()))
+                                                 category: 0, deadline: Date()))
             try reminders.add(reminder: Reminder(title: "Reminder Three", module: "306AEE",
-                                                 category: "Project", deadline: Date()))
+                                                 category: 2, deadline: Date()))
             XCTAssertEqual(reminders.count, 3)
             let reminder = Reminder(title: "Reminder Four", module: "301CDE",
-                                    category: "Coursework", deadline: Date())
+                                    category: 0, deadline: Date())
             try reminders.insert(reminder: reminder, at: reminders.count)
             XCTAssertEqual(reminders.count, 4)
         } catch {
@@ -182,14 +184,14 @@ class ReminderTests: XCTestCase {
         let reminders = Reminders.sharedInstance
         do {
             try reminders.add(reminder: Reminder(title: "Reminder One", module: "305AEE",
-                                                 category: "Report", deadline: Date()))
+                                                 category: 3, deadline: Date()))
             try reminders.add(reminder: Reminder(title: "Reminder Two", module: "310SE",
-                                                 category: "Coursework", deadline: Date()))
+                                                 category: 0, deadline: Date()))
             try reminders.add(reminder: Reminder(title: "Reminder Three", module: "306AEE",
-                                                 category: "Project", deadline: Date()))
+                                                 category: 2, deadline: Date()))
             XCTAssertEqual(reminders.count, 3)
             let reminder = Reminder(title: "Reminder Five", module: "301CDE",
-                                    category: "Coursework", deadline: Date())
+                                    category: 0, deadline: Date())
             try reminders.insert(reminder: reminder, at: reminders.count + 1)
             XCTFail()
         } catch ReminderError.outOfRande(let index) {
@@ -204,10 +206,10 @@ class ReminderTests: XCTestCase {
         let reminders = Reminders.sharedInstance
         do {
             try reminders.add(reminder: Reminder(title: "Reminder One", module: "305AEE",
-                                                 category: "Report", deadline: Date()))
+                                                 category: 3, deadline: Date()))
             XCTAssertEqual(reminders.count, 1)
             var reminder = Reminder(title: "Reminder One Update", module: "301AEF",
-                                    category: "Report", deadline: Date())
+                                    category: 3, deadline: Date())
             try reminders.update(reminder: reminder, at: 0)
             XCTAssertEqual(reminders.count, 1)
             reminder = try reminders.getReminder(at: 0)
@@ -222,14 +224,14 @@ class ReminderTests: XCTestCase {
         let reminders = Reminders.sharedInstance
         do {
             try reminders.add(reminder: Reminder(title: "Reminder One", module: "305AEE",
-                                                 category: "Report", deadline: Date()))
+                                                 category: 3, deadline: Date()))
             try reminders.add(reminder: Reminder(title: "Reminder Two", module: "310SE",
-                                                 category: "Coursework", deadline: Date()))
+                                                 category: 0, deadline: Date()))
             try reminders.add(reminder: Reminder(title: "Reminder Three", module: "306AEE",
-                                                 category: "Project", deadline: Date()))
+                                                 category: 2, deadline: Date()))
             XCTAssertEqual(reminders.count, 3)
             var reminder = Reminder(title: "Reminder Three Update", module: "306AFF",
-                                    category: "Project", deadline: Date())
+                                    category: 2, deadline: Date())
             try reminders.update(reminder: reminder, at: 2)
             XCTAssertEqual(reminders.count, 3)
             reminder = try reminders.getReminder(at: 2)
@@ -244,13 +246,13 @@ class ReminderTests: XCTestCase {
         let reminders = Reminders.sharedInstance
         do {
             try reminders.add(reminder: Reminder(title: "Reminder One", module: "305AEE",
-                                                 category: "Report", deadline: Date()))
+                                                 category: 3, deadline: Date()))
             try reminders.add(reminder: Reminder(title: "Reminder Two", module: "310SE",
-                                                 category: "Coursework", deadline: Date()))
+                                                 category: 0, deadline: Date()))
             try reminders.add(reminder: Reminder(title: "Reminder Three", module: "306AEE",
-                                                 category: "Project", deadline: Date()))
+                                                 category: 2, deadline: Date()))
             XCTAssertEqual(reminders.count, 3)
-            let reminder = Reminder(title: "Reminder Four Update", module: "301CDE", category: "Exam", deadline: Date())
+            let reminder = Reminder(title: "Reminder Four Update", module: "301CDE", category: 1, deadline: Date())
             try reminders.update(reminder: reminder, at: 3)
             XCTFail()
         } catch ReminderError.outOfRande(let index) {

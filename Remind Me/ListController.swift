@@ -7,10 +7,27 @@
 //
 
 import UIKit
+import CoreData
 
-class ListController: UITableViewController , UpdateDelegate{
+protocol DeleteReminderDelegate {
+    func clearReminderView(at index: Int)
+}
+
+class ListController: UITableViewController, UpdateDelegate{
     
     var reminders = Reminders.sharedInstance
+    var reminderObj = [NSManagedObject]()
+    var delegate: DeleteReminderDelegate?
+    
+    @IBAction func editMode(_ sender: UIBarButtonItem) {
+        self.isEditing = !self.isEditing
+        print("editmode: \(self.isEditing)")
+        if self.isEditing {
+            sender.title = "Done"
+        } else {
+            sender.title = "Edit"
+        }
+    }
     
     @IBAction func addReminder(_ sender: UIBarButtonItem) {
         try? self.reminders.add(reminder: Reminder(title: "New Reminder", module: " ", category: 0, deadline: Date()))
@@ -74,32 +91,27 @@ class ListController: UITableViewController , UpdateDelegate{
     }
     */
 
-    /*
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
+            try? self.reminders.remove(at: indexPath.row)
+            delegate?.clearReminderView(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
-    */
 
-    /*
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+        let reminder: Reminder = try! reminders.getReminder(at: fromIndexPath.row)
+        try? self.reminders.remove(at: fromIndexPath.row)
+        try? reminders.insert(reminder: reminder, at: to.row)
+        self.tableView.reloadData()
     }
-    */
 
-    /*
     // Override to support conditional rearranging of the table view.
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
         return true
     }
-    */
     
     func update(with reminder: Reminder, at index: Int) {
         print("delegate method called with note title: \(reminder.title) at index \(index)")
