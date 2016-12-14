@@ -171,8 +171,9 @@
                     <connections>
                         <outlet property="categoryPicker" destination="2I8-vv-XZD" id="te7-3d-kwS"/>
                         <outlet property="categoryPickerHeight" destination="YJg-vv-CWk" id="8Ch-LC-j8d"/>
+                        <outlet property="datePicker" destination="oiX-Ru-Cmy" id="tM1-6g-7X6"/>
                         <outlet property="datePickerHeight" destination="D1U-PG-hVk" id="oFy-wk-AZG"/>
-                        <outlet property="doneButton" destination="eDe-xH-Nqd" id="1iW-lh-R5b"/>
+                        <outlet property="doneButton" destination="eDe-xH-Nqd" id="kPN-CU-dQW"/>
                         <outlet property="moduleField" destination="hLO-Bk-EbF" id="xaS-56-e9z"/>
                         <outlet property="titleField" destination="zAL-Lb-IeZ" id="7Z7-80-MIP"/>
                     </connections>

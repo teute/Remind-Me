@@ -22,6 +22,7 @@ class ReminderController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var moduleField: UITextField!
     @IBOutlet weak var categoryPicker: UIPickerView!
+    @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var doneButton: UIBarButtonItem!
     @IBOutlet weak var categoryPickerHeight: NSLayoutConstraint!
     @IBOutlet weak var datePickerHeight: NSLayoutConstraint!
@@ -50,6 +51,8 @@ class ReminderController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardDidHide, object: nil)
         
+        datePicker.addTarget(self, action: #selector(datePickerChanged(datePicker:)), for: UIControlEvents.valueChanged)
+        
         categoryData = ["Coursework", "Exam", "Project", "Report"]
         
         if let id:Int = self.reminderID {
@@ -59,6 +62,7 @@ class ReminderController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
                 self.titleField.text = reminder.title
                 self.moduleField.text = reminder.module
                 self.categoryPicker.selectRow(reminder.category, inComponent: 0, animated: true)
+                self.datePicker.date = reminder.deadline
             }
         }
     }
@@ -89,7 +93,7 @@ class ReminderController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     func saveReminder() {
         self.title = self.titleField.text
         let reminder:Reminder = Reminder(title: titleField.text!, module: moduleField.text!,
-                                         category: categoryPicker.selectedRow(inComponent: 0), deadline: Date())
+                                         category: categoryPicker.selectedRow(inComponent: 0), deadline: datePicker.date)
         if let id:Int = self.reminderID {
             print("saving reminder with id: \(id)")
             delegate?.update(with: reminder, at: id)
@@ -102,6 +106,11 @@ class ReminderController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         } else if textField == moduleField {
             print("finished editing the module")
         }
+        saveReminder()
+    }
+    
+    func datePickerChanged(datePicker: UIDatePicker) {
+        
         saveReminder()
     }
     
