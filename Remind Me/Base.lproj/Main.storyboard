@@ -33,7 +33,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ttw-Sn-Yem" id="L87-Z0-y88">
-                                    <frame key="frameInset" width="375" height="43"/>
+                                    <frame key="frameInset" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
@@ -107,7 +107,7 @@
                             </textField>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2I8-vv-XZD">
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="180" id="fVD-By-ILb"/>
+                                    <constraint firstAttribute="height" constant="180" id="YJg-vv-CWk"/>
                                 </constraints>
                             </pickerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deadline:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="STA-fz-8PE">
@@ -129,6 +129,9 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="oiX-Ru-Cmy">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="239" id="D1U-PG-hVk"/>
+                                </constraints>
                                 <date key="date" timeIntervalSinceReferenceDate="503351089.57282501">
                                     <!--2016-12-13 19:44:49 +0000-->
                                 </date>
@@ -139,7 +142,6 @@
                             <constraint firstAttribute="trailing" secondItem="oiX-Ru-Cmy" secondAttribute="trailing" id="2rz-4Z-WmO"/>
                             <constraint firstItem="BHr-XG-F9n" firstAttribute="top" secondItem="hLO-Bk-EbF" secondAttribute="bottom" constant="10" id="2xV-CP-DUI"/>
                             <constraint firstAttribute="trailing" secondItem="2I8-vv-XZD" secondAttribute="trailing" id="3QI-dN-kne"/>
-                            <constraint firstItem="2I8-vv-XZD" firstAttribute="top" secondItem="BHr-XG-F9n" secondAttribute="bottom" constant="8" id="5r7-DX-soy"/>
                             <constraint firstItem="STA-fz-8PE" firstAttribute="top" secondItem="2I8-vv-XZD" secondAttribute="bottom" constant="8" id="9ap-uy-jPj"/>
                             <constraint firstItem="oiX-Ru-Cmy" firstAttribute="top" secondItem="STA-fz-8PE" secondAttribute="bottom" constant="8" id="ISr-nC-L81"/>
                             <constraint firstItem="zAL-Lb-IeZ" firstAttribute="leading" secondItem="gWs-4s-RPD" secondAttribute="leadingMargin" id="NeI-Hm-0JK"/>
@@ -168,6 +170,8 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="categoryPicker" destination="2I8-vv-XZD" id="te7-3d-kwS"/>
+                        <outlet property="categoryPickerHeight" destination="YJg-vv-CWk" id="8Ch-LC-j8d"/>
+                        <outlet property="datePickerHeight" destination="D1U-PG-hVk" id="oFy-wk-AZG"/>
                         <outlet property="doneButton" destination="eDe-xH-Nqd" id="1iW-lh-R5b"/>
                         <outlet property="moduleField" destination="hLO-Bk-EbF" id="xaS-56-e9z"/>
                         <outlet property="titleField" destination="zAL-Lb-IeZ" id="7Z7-80-MIP"/>
@@ -195,6 +199,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="PNp-XF-0xN"/>
+        <segue reference="crs-hW-IhV"/>
     </inferredMetricsTieBreakers>
 </document>

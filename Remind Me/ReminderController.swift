@@ -23,6 +23,8 @@ class ReminderController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     @IBOutlet weak var moduleField: UITextField!
     @IBOutlet weak var categoryPicker: UIPickerView!
     @IBOutlet weak var doneButton: UIBarButtonItem!
+    @IBOutlet weak var categoryPickerHeight: NSLayoutConstraint!
+    @IBOutlet weak var datePickerHeight: NSLayoutConstraint!
     
     @IBAction func dismissKeyboard(_ sender: UIBarButtonItem) {
         self.titleField.resignFirstResponder()
@@ -36,6 +38,11 @@ class ReminderController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         
         self.doneButton.tintColor = UIColor.clear
         
+        // Resize category and date picker to 30% of screen height
+        let screenSize: CGRect = UIScreen.main.bounds
+        categoryPickerHeight.constant = screenSize.height * 0.3
+        datePickerHeight.constant = screenSize.height * 0.3
+        
         self.categoryPicker.delegate = self
         self.categoryPicker.dataSource = self
         self.titleField.delegate = self
@@ -44,7 +51,7 @@ class ReminderController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardDidHide, object: nil)
         
         categoryData = ["Coursework", "Exam", "Project", "Report"]
-
+        
         if let id:Int = self.reminderID {
             print("view did load with reminder \(id)")
             if let reminder:Reminder = try? Reminders.sharedInstance.getReminder(at: id) {
