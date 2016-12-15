@@ -6,9 +6,11 @@
 //  Copyright © 2016 Coventry University. All rights reserved.
 //
 
+//http://stackoverflow.com/questions/29986957/save-custom-objects-into-nsuserdefaults
+
 import Foundation
 
-public struct Reminder {
+public class Reminder: NSObject, NSCoding {
     var title: String
     var module: String
     var category: Int
@@ -22,6 +24,21 @@ public struct Reminder {
         self.deadline = deadline
         self.dueIn = deadline.timeIntervalSince(Date())
     }
+    
+    required convenience public init(coder aDecoder: NSCoder) {
+        let title = aDecoder.decodeObject(forKey: "title") as! String
+        let module = aDecoder.decodeObject(forKey: "module") as! String
+        let category = aDecoder.decodeInteger(forKey: "category")
+        let deadline = aDecoder.decodeObject(forKey: "deadline") as! Date
+        self.init(title: title, module: module, category: category, deadline: deadline)
+    }
+    
+    public func encode(with aCoder: NSCoder) {
+        aCoder.encode(title, forKey: "title")
+        aCoder.encode(module, forKey: "module")
+        aCoder.encode(category, forKey: "category")
+        aCoder.encode(deadline, forKey: "deadline")
+    }
 }
 
 enum ReminderError: Error {
@@ -32,6 +49,7 @@ enum ReminderError: Error {
 public class Reminders {
     
     var reminders:[Reminder]
+    let userDefaults = UserDefaults.standard
     
     public static let sharedInstance = Reminders()
     
@@ -83,5 +101,17 @@ public class Reminders {
             throw ReminderError.outOfRande(index: index)
         }
         self.reminders.remove(at: index)
+    }
+    
+    public func save() {
+        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: reminders)
+        userDefaults.set(encodedData, forKey: "reminders")
+        userDefaults.synchronize()
+    }
+    
+    public func load() {
+        if let decoded = userDefaults.object(forKey: "reminders") as? Data {
+            self.reminders = NSKeyedUnarchiver.unarchiveObject(with: decoded) as! [Reminder]
+        }
     }
 }

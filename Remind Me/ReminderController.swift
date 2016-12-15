@@ -98,6 +98,7 @@ class ReminderController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         if let id:Int = self.reminderID {
             print("saving reminder with id: \(id)")
             delegate?.update(with: reminder, at: id)
+            Reminders.sharedInstance.save()
         }
     }
     

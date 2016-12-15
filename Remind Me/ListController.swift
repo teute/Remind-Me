@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreData
 
 //http://www.codingexplorer.com/swiftly-getting-human-readable-date-nsdateformatter/
 //http://www.knowstack.com/swift-nsdateformatter/
@@ -20,7 +19,6 @@ protocol DeleteReminderDelegate {
 class ListController: UITableViewController, UpdateDelegate{
     
     var reminders = Reminders.sharedInstance
-    var reminderObj = [NSManagedObject]()
     var delegate: DeleteReminderDelegate?
     
     @IBAction func editMode(_ sender: UIBarButtonItem) {
@@ -35,15 +33,16 @@ class ListController: UITableViewController, UpdateDelegate{
     
     @IBAction func addReminder(_ sender: UIBarButtonItem) {
         try? self.reminders.add(reminder: Reminder(title: "New Reminder", module: " ", category: 0, deadline: Date()))
-            self.tableView.reloadData()
+        self.tableView.reloadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let dateFormatter = DateFormatter()
+        /*let dateFormatter = DateFormatter()
         //dateFormatter.dateStyle = .short
         //dateFormatter.timeStyle = .short
+        
         dateFormatter.dateFormat = "yyyy-MM-dd h:mm a"
         
         let date1: Date = dateFormatter.date(from: "2016-12-06  11:59 PM")!
@@ -59,7 +58,8 @@ class ListController: UITableViewController, UpdateDelegate{
         try? reminders.add(reminder: Reminder(title: "Reminder Two", module: "310SE",
                                               category: 0, deadline: date2))
         try? reminders.add(reminder: Reminder(title: "Reminder Three", module: "306AEE",
-                                              category: 2, deadline: date3))
+                                              category: 2, deadline: date3))*/
+        Reminders.sharedInstance.load()
     }
 
     override func didReceiveMemoryWarning() {
@@ -121,6 +121,7 @@ class ListController: UITableViewController, UpdateDelegate{
             //TODO: the delegate points to nil, needs fixing for feature to work
             delegate?.clearReminderView(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            Reminders.sharedInstance.save()
         }
     }
 
@@ -130,6 +131,7 @@ class ListController: UITableViewController, UpdateDelegate{
         try? self.reminders.remove(at: fromIndexPath.row)
         try? reminders.insert(reminder: reminder, at: to.row)
         self.tableView.reloadData()
+        Reminders.sharedInstance.save()
     }
 
     // Override to support conditional rearranging of the table view.

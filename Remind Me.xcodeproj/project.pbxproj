@@ -519,6 +519,7 @@
 				AF26708D1E005FAF004FAF00 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AF26708E1E005FAF004FAF00 /* Build configuration list for PBXNativeTarget "Remind MeTests" */ = {
 			isa = XCConfigurationList;
@@ -527,6 +528,7 @@
 				AF2670901E005FAF004FAF00 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AF2670911E005FAF004FAF00 /* Build configuration list for PBXNativeTarget "Remind MeUITests" */ = {
 			isa = XCConfigurationList;
@@ -535,6 +537,7 @@
 				AF2670931E005FAF004FAF00 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
