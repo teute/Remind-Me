@@ -18,15 +18,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Remind Me" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QJe-Os-mf4">
-                                <frame key="frameInset" minX="73" minY="307" width="229" height="89"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="mjB-EX-JsK">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="6RV-RU-ibz"/>
+                                    <constraint firstAttribute="width" constant="150" id="HV6-ST-1u7"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remind Me" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QJe-Os-mf4">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="89" id="IKQ-V6-h3P"/>
+                                    <constraint firstAttribute="width" constant="229" id="Iuq-uF-Niv"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="GillSans-Light" family="Gill Sans" pointSize="48"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.22727652629234518" green="0.50761714572015326" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="QJe-Os-mf4" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Xux-eF-W9V"/>
+                            <constraint firstItem="mjB-EX-JsK" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Yxt-Ly-Rd9"/>
+                            <constraint firstItem="QJe-Os-mf4" firstAttribute="top" secondItem="mjB-EX-JsK" secondAttribute="bottom" id="f84-K7-3s9"/>
+                            <constraint firstItem="mjB-EX-JsK" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-30" id="q2B-8Q-NPE"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -34,4 +48,7 @@
             <point key="canvasLocation" x="52" y="374.66266866566718"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Logo" width="150" height="150"/>
+    </resources>
 </document>
